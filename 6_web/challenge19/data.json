@@ -1,0 +1,23 @@
+[
+   {
+      "string": "mama",
+      "integer": "18290",
+      "float": "16.90",
+      "date": "2020-02-12",
+      "boolean": "true"
+   },
+   {
+      "string": "bayu",
+      "integer": "1234",
+      "float": "19.04",
+      "date": "2020-02-04",
+      "boolean": "true"
+   },
+   {
+      "string": "meow",
+      "integer": "4537",
+      "float": "20.20",
+      "date": "2020-02-14",
+      "boolean": "false"
+   }
+]
