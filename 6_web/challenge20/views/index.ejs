@@ -72,8 +72,6 @@
         </form>
     </div><br>
 
-
-
     <div class="container">
         <table class="table table-striped">
             <thead>
@@ -88,7 +86,21 @@
                 </tr>
             </thead>
             <tbody>
-
+                <%  data.forEach((item, index) => { %>
+                <tr>
+                    <td><%= item.id %></td>
+                    <td><%= item.string %></td>
+                    <td><%= item.integer %></td>
+                    <td><%= item.float %></td>
+                    <td><%= item.date %></td>
+                    <td><%= item.boolean %></td>
+                    <td>
+                        <a href="/edit/<%= item.id %>"><button type="submit" class="btn btn-success">Edit</button></a>
+                        <a href="/delete/<%= item.id %>"><button type="submit"
+                                class="btn btn-danger">Delete</button></a>
+                    </td>
+                </tr>
+                <% }); %>
             </tbody>
         </table>
     </div>
@@ -96,6 +108,20 @@
     <div class="container">
         <a href="/add" class="btn btn-primary">Add</a>
     </div><br />
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+            </li>
+        </ul>
+    </nav>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
