@@ -42,15 +42,6 @@ app.get("/edit/:id", (req, res) => {
     });
 });
 
-// app.get('/edit/:id', (req, res) => {
-//     let id = req.params.id;
-//     const sqlEdit = `SELECT * FROM bread WHERE id = ?`;
-//     db.get(sqlEdit, id, (err, item) => {
-//         if (err) throw err;
-//         res.render('edit', { item })
-//     })
-// });
-
 app.post("/add", (req, res) => {
     const { string, integer, float, date, boolean } = req.body;
     db.serialize(() => {
@@ -67,31 +58,18 @@ app.post("/edit/:id", (req, res) => {
     const id = req.params.id;
     const { string, integer, float, date, boolean } = req.body;
 
-        let sqleditData = `UPDATE bread SET string = '${string}', integer = '${integer}', float = '${float}', date = '${date}', boolean = '${boolean}'
+    let sqleditData = `UPDATE bread SET string = '${string}', integer = '${integer}', float = '${float}', date = '${date}', boolean = '${boolean}'
         WHERE id = '${id}';`
-        console.log(sqleditData);
-        
-        
-        db.run(sqleditData, err => {
-            if (err) {
-                throw err;
-            };
-        });
-        res.redirect("/");
+    console.log(sqleditData);
+
+
+    db.run(sqleditData, err => {
+        if (err) {
+            throw err;
+        };
     });
-// });
-
-// app.post('/edit/:id', (req, res) => {
-//     let id = req.params.id;
-//     const sqlNewValue = `UPDATE bread SET string = ?, integer = ?, float = ?, date = ?, boolean = ? WHERE id = ?`;
-//     const input = [req.body.string, req.body.integer, req.body.float, req.body.date, req.body.boolean, id];
-//     db.run(sqlNewValue, input, (err) => {
-//         if (err) throw err;
-//         console.log(input);
-
-//         res.redirect('/')
-//     })
-// });
+    res.redirect("/");
+})
 
 app.get("/delete/:id", (req, res) => {
     const id = req.params.id;
