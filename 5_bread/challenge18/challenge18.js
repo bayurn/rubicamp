@@ -9,7 +9,7 @@ const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
 });
-// let count = 0;
+
 console.log(`================================================
 Welcome to Universitas Pendidikan Indonesia
 Jl Setiabudhi No. 255
@@ -235,7 +235,6 @@ Masukkan NIM mahasiswa yang akan dihapus: `, (nim) => {
                 INNER JOIN jurusan 
                 ON mahasiswa.id_jurusan = jurusan.id_jurusan;`
                 db.all(sqldaftarMurid, (err, row) => {
-                    // console.log(`================================================`)
                     if (err) throw err;
                     if (row) {
                         var table = new Table({
@@ -248,7 +247,6 @@ Masukkan NIM mahasiswa yang akan dihapus: `, (nim) => {
                             );
                         });
                         console.log(table.toString());
-                        // hapusMurid();
                         mahasiswa();
                     } else {
                         console.log(`Data tidak ditemukan!`);
@@ -516,7 +514,6 @@ Lengkapi data di bawah ini:`);
                 db.run(sqltambahDosen, (err) => {
                     if (err) throw err;
                     let sqltampildata = `SELECT * FROM dosen;`
-                    // console.log(sqltampildata);
 
                     db.all(sqltampildata, (err, row) => {
                         if (err) throw err;
