@@ -10,10 +10,8 @@ function sentencesManipulation(sentence) {
   for (let i = 0; i < sliceWord.length; i++){
     str += stringManipulation(sliceWord[i]) + " ";
   }
-  return str//console.log(str); 
+  return str
 }
-
-// sentencesManipulation('ibu pergi ke pasar bersama aku');
 
 const readline = require('readline');
 const rl = readline.createInterface({
