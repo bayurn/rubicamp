@@ -18,18 +18,41 @@ app.set("view engine", "ejs");
 app.use("/", express.static(path.join(__dirname, "public")));
 
 app.get("/", (req, res) => {
-    db.serialize(() => {
-        let sqlgetData = `SELECT * FROM bread;`
-        db.all(sqlgetData, (err, row) => {
-            if (err) throw err
-            res.render("index", { data: row });
-        })
-    })
+    // db.serialize(() => {
+    //     let sqlgetData = `SELECT * FROM bread;`
+    //     db.all(sqlgetData, (err, row) => {
+    //         if (err) throw err
+    //         res.render("index", { data: row });
+    //     })
+    // })
+    let result = [];
+    let dataFilter = false;
+    
+    if (req.query.check_id && req.query.id) {
+        result.push(`id = ${req.query.id}`)
+    }
+    if (req.query.check_string && req.query.string) {
+        result.push(`string = ${req.query.string}`)
+    }
+    if (req.query.check_integer && req.query.integer) {
+        result.push(`integer = ${req.query.integer}`)
+    }
+    if (req.query.check_float && req.query.float) {
+        result.push(`float = ${req.query.float}`)
+    }
+    if (req.query.check_date && result.query.date) {
+        result.push(`date = ${req.query.date}`)
+    }
+    if (req.query.check_boolean && req.query.boolean) {
+        result.push(`boolean = ${req.query.boolean}`)
+    }
 });
+    
 app.get("/add", (req, res) => {
     const id = req.params.id;
     res.render("add");
 });
+
 app.get("/edit/:id", (req, res) => {
     let id = req.params.id;
     // const { string, integer, float, date, boolean } = req.body;
@@ -83,6 +106,6 @@ app.get("/delete/:id", (req, res) => {
     })
 })
 
-app.listen(3001, () => {
-    console.log(`web ini berjalan di port 3001!`);
+app.listen(3002, () => {
+    console.log(`web ini berjalan di port 3000!`);
 });
