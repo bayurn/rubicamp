@@ -30,8 +30,6 @@ app.get("/", (req, res) => {
     let check = req.query;
     let sql = `SELECT * FROM bread`
 
-    console.log(check)
-
     if (req.query.check_id && req.query.id) {
         console.log('masuk id');
         result.push(`id = ${parseInt(req.query.id)}`)
@@ -54,8 +52,7 @@ app.get("/", (req, res) => {
     }
 
     if (req.query.check_date && req.query.startDate && req.query.endDate) {
-        console.log(req.query.endDate);
-        result.push(`date BETWEEN ${req.query.startDate} AND ${req.query.endDate}`)
+        result.push(`date BETWEEN '${req.query.startDate}' AND '${req.query.endDate}'`)
         dataFilter = true;
     }
 
@@ -136,6 +133,6 @@ app.get("/delete/:id", (req, res) => {
     })
 })
 
-app.listen(3001, () => {
-    console.log(`web ini berjalan di port 3001!`);
+app.listen(3000, () => {
+    console.log(`web ini berjalan di port 3000!`);
 });
