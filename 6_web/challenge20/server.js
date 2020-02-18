@@ -62,18 +62,37 @@ app.get("/", (req, res) => {
     }
 
     if(dataFilter == true){
-        sql += ` WHERE ${result.join(' AND ')}`
-        console.log(sql);
+        sql = sql + ` WHERE ${result.join(' AND ')}`
     }
 
-    console.log(sql)
-    db.all(sql, (err, row) => {
-        if (err) throw err;
-        res.render("index", {
-            data: row,
-            query: req.query
+    db.all(sql, (err, count) => {
+        const page = req.query.page || 1;
+        console.log(page);
+        const limit = 3;
+        const offset = (page - 1) * limit;
+        console.log(offset);
+        const url = req.url == '/' ? '/page=1' : req.url;
+        console.log(url);
+        const total = count[0].total;
+        console.log(total);
+        const page1 = Math.ceil(total / limit);
+        console.log(page);
+        
+        let sql = `SELECT * FROM bread`
+        if (dataFilter) {
+            sql = sql + ` WHERE ${result.join(' AND ')}`;
+        }
+        sql = sql + `LIMIT ${limit} OFFSET ${offset}`;
+
+        
+        db.all(sql, (err, row) => {
+            if (err) throw err;
+            res.render("index", {
+                data: row,
+                query: req.query
+            });
         });
-    });
+    })
 });
 
 app.get("/add", (req, res) => {
@@ -125,7 +144,7 @@ app.get("/delete/:id", (req, res) => {
     const id = req.params.id;
     db.serialize(() => {
         let sqldeleteData = `DELETE FROM bread WHERE id = ${id}`
-        console.log(sqldeleteData);
+
         db.run(sqldeleteData, (err, row) => {
             if (err) throw err;
             res.redirect("/");
