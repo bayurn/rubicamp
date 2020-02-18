@@ -61,35 +61,38 @@ app.get("/", (req, res) => {
         dataFilter = true;
     }
 
+    let querySql = `SELECT COUNT(*) AS total FROM bread`
     if(dataFilter == true){
         sql = sql + ` WHERE ${result.join(' AND ')}`
     }
 
-    db.all(sql, (err, count) => {
+    db.all(querySql, (err, count) => {
+        if (err) throw err;
         const page = req.query.page || 1;
-        console.log(page);
         const limit = 3;
         const offset = (page - 1) * limit;
-        console.log(offset);
         const url = req.url == '/' ? '/page=1' : req.url;
-        console.log(url);
         const total = count[0].total;
         console.log(total);
-        const page1 = Math.ceil(total / limit);
-        console.log(page);
+        
+        const pages = Math.ceil(total / limit);
+        console.log(pages);
+        
         
         let sql = `SELECT * FROM bread`
         if (dataFilter) {
             sql = sql + ` WHERE ${result.join(' AND ')}`;
         }
-        sql = sql + `LIMIT ${limit} OFFSET ${offset}`;
-
+        sql = sql + ` LIMIT ${limit} OFFSET ${offset}`;
         
         db.all(sql, (err, row) => {
             if (err) throw err;
             res.render("index", {
                 data: row,
-                query: req.query
+                query: req.query,
+                page,
+                pages,
+                url
             });
         });
     })
