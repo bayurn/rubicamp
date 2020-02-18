@@ -21,7 +21,8 @@
                     <input class="form-check-input" type="checkbox" name="check_id"
                         <%= query.check_id ? ' checked ' : '' %>>ID</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" placeholder="ID" id="id" name="id" value="<%= query.id %>">
+                    <input type="number" class="form-control" placeholder="ID" id="id" name="id"
+                        value="<%= query.id %>">
                 </div>
             </div>
 
@@ -30,7 +31,8 @@
                     <input class="form-check-input" type="checkbox" name="check_string"
                         <%= query.check_string ? ' checked ' : '' %>>String</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="String" id="string" name="string" value="<%= query.string %>">
+                    <input type="text" class="form-control" placeholder="String" id="string" name="string"
+                        value="<%= query.string %>">
                 </div>
             </div>
 
@@ -39,7 +41,8 @@
                     <input class="form-check-input" type="checkbox" name="check_integer"
                         <%= query.check_integer ? ' checked ' : '' %>> Integer</label>
                 <div class="col-sm-10">
-                    <input type="number" id="integer" class="form-control" placeholder="Integer" name="integer" value="<%= query.integer %>">
+                    <input type="number" id="integer" class="form-control" placeholder="Integer" name="integer"
+                        value="<%= query.integer %>">
                 </div>
             </div>
 
@@ -48,7 +51,8 @@
                     <input class="form-check-input" type="checkbox" name="check_float"
                         <%= query.check_float ? ' checked ' : '' %>> Float</label>
                 <div class="col-sm-10">
-                    <input type="text" id="float" class="form-control" placeholder="Float" name="float" value="<%= query.float %>">
+                    <input type="text" id="float" class="form-control" placeholder="Float" name="float"
+                        value="<%= query.float %>">
                 </div>
             </div>
 
@@ -57,15 +61,17 @@
                     <input class="form-check-input" type="checkbox" name="check_date"
                         <%= query.check_date ? ' checked ' : '' %>> Date</label>
                 <div class="col-9">
-                    <input type="date" class="form-control col-sm-4" value="startDate" id="startDate" name="startDate" value="<%= query.startDate %>">
+                    <input type="date" class="form-control col-sm-4" value="startDate" id="startDate" name="startDate"
+                        value="<%= query.startDate %>">
                     <div class="col-2">to</div>
-                    <input type="date" class="form-control col-sm-4" value="endDate" id="endDate" name="endDate" value="<%= query.endDate %>">
+                    <input type="date" class="form-control col-sm-4" value="endDate" id="endDate" name="endDate"
+                        value="<%= query.endDate %>">
                 </div>
             </div>
 
             <div class="form-group row">
                 <label for="boolean" class="col-sm-2 col-form-label">
-                    <input class="form-check-input" type="checkbox" name="check_boolean" 
+                    <input class="form-check-input" type="checkbox" name="check_boolean"
                         <%= query.check_boolean ? ' checked' : '' %>> Boolean
                 </label>
 
@@ -120,9 +126,24 @@
         </div>
 
         <div class="container">
-            <a href="/add" class="btn btn-primary">Add Data</a>
+            <a href="/add" class="btn btn-outline-primary">Add Data</a>
         </div><br />
 
+        <nav aria-label="navigation">
+            <ul class="pagination justify-content-center">
+                <li class="page-item <%= page == 1 ? 'disabled' : ''; %>">
+                    <a class="page-link" href="/?page=<%= parseInt(page)-1 %>">Previous</a>
+                </li>
+                <% for (let i = 1; i <= pages; i++) { %>
+                <li class="page-item <%= page == 1 ? 'active' : ''; %>" </li>>
+                    <a class="page-link" href="/?page=<%= i %>"><% i %></a></li>
+                <%}%>
+                <li class="page-item <%= page == pages ? 'disabled' : ''; %>">
+                    <a class="page-link" href="/page=<%= parseInt(page) + 1 %>">Next</a>
+                </li>
+            </ul>
+        </nav>
+        <br>
 
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
