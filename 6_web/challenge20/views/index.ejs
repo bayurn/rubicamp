@@ -132,14 +132,15 @@
         <nav aria-label="navigation">
             <ul class="pagination justify-content-center">
                 <li class="page-item <%= page == 1 ? 'disabled' : ''; %>">
-                    <a class="page-link" href="/?page=<%= parseInt(page)-1 %>">Previous</a>
+                    <a class="page-link" href="/?page=<%= parseInt(page) - 1 %>">Previous</a>
                 </li>
                 <% for (let i = 1; i <= pages; i++) { %>
-                <li class="page-item <%= page == 1 ? 'active' : ''; %>" </li>>
-                    <a class="page-link" href="/?page=<%= i %>"><% i %></a></li>
-                <%}%>
+                <li class="page-item <%= page == i ? 'active' : ''; %>"></li>
+                    <a class="page-link" href="/?page=<%= i %>"><%= i %></a></li>
+                <%};%>
+                
                 <li class="page-item <%= page == pages ? 'disabled' : ''; %>">
-                    <a class="page-link" href="/page=<%= parseInt(page) + 1 %>">Next</a>
+                    <a class="page-link" href="/?page=<%= parseInt(page) + 1 %>">Next</a>
                 </li>
             </ul>
         </nav>
