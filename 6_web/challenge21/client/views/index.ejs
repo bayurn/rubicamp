@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+
+<body>
+  <div class="container col-9">
+    <h1 style="text-align: center; font-family: 'Abel', sans-serif;"><%= title %></h1>
+    <p style="text-align: center;">Welcome to <%= title %></p>
+
+    <form id="form-todo">
+      <input type="hidden" id="page" value="1">
+      <div class="form-group row">
+        <label for="id" class="col-sm-2 col-form-label">
+          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">ID</label>
+        <div class="col-sm-10">
+          <input type="number" class="form-control" id="id" name="id" placeholder="ID">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="string" class="col-sm-2 col-form-label">
+          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">String</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="string" placeholder="String">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="integer" class="col-sm-2 col-form-label">
+          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">Integer</label>
+        <div class="col-sm-10">
+          <input type="number" class="form-control" id="integer" name="integer" placeholder="Integer">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="float" class="col-sm-2 col-form-label">
+          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">Float</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="text" placeholder="Float">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="date" class="col-sm-2 col-form-label">
+          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">Date</label>
+        <div class="col-sm-10">
+          <input type="date" class="form-control col-6" id="date" placeholder="date">
+
+          <div class="col-sm-10">to</div>
+
+          <input type="date" class="form-control col-6" id="date" placeholder="date">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="boolean" class="col-sm-2 col-form-label">
+          <input class="form-check-input" type="checkbox" value="" id="boolean">Boolean
+
+        </label>
+        <div class="col-sm-10">
+          <select class="form-control" name="boolean" id="boolean">
+            <option selected disabled>Choose the boolean</option>
+            <option value="true">True</option>
+            <option value="false">False</option>
+          </select>
+        </div>
+      </div><br>
+      <div class="form-group row">
+        <button type="submit" class="btn btn-outline-primary">Search</button>
+        <div class="col-2">
+          <a href="" type="button" class="btn btn-outline-danger">Reset</a>
+        </div>
+      </div>
+    </form>
+  </div><br>
+
+  <div class="container col-10">
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col" style="text-align: center;">ID</th>
+          <th scope="col" style="text-align: center;">String</th>
+          <th scope="col" style="text-align: center;">Integer</th>
+          <th scope="col" style="text-align: center;">Float</th>
+          <th scope="col" style="text-align: center;">Date</th>
+          <th scope="col" style="text-align: center;">Boolean</th>
+          <th scope="col" style="text-align: center;">Edit / Delete</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- <tr>
+          <th style="text-align: center;">id</th>
+          <td style="text-align: center;">string</td>
+          <td style="text-align: center;">integer</td>
+          <td style="text-align: center;">float</td>
+          <td style="text-align: center;">date</td>
+          <td style="text-align: center;">boolean</td>
+          <td style="text-align: center;">
+            <a href="#" type="button" class="btn btn-outline-success">Edit</a>
+            <a href="#" type="button" class="btn btn-outline-danger">Delete</a>
+          </td>
+        </tr> -->
+      </tbody>
+    </table>
+    <br>
+    <div>
+      <a href="/add" class="btn btn-outline-primary">Add Data</a><br>
+    </div>
+  </div>
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+
+    </ul>
+  </nav>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    const apiUrl = "http://localhost:3000/api"
+
+    $(document).ready(() => {
+      loadData();
+      $('#form-todo').submit((e) => {
+        e.preventDefault();
+        saveData();
+      });
+
+      $('table tbody').on('click', '.btn-delete', (event) => {
+        deleteData($(event.currentTarget).attr('data-id'))
+      })
+
+      $('table tbody').on('click', '.btn-edit', (event) => {
+        editData($(event.currentTarget).attr('data-id'))
+      })
+
+      $('ul.pagination').on('click', '.previous', (event) => {
+        let page = $('input#page').val();
+        $('input#page').val(parseInt(page) - 1);
+        loadData();
+      })
+
+      $('ul.pagination').on('click', '.pageNow', (event) => {
+        let page = $('input#page').val();
+        $('input#page').val($(event.currentTarget).attr('data-page'));
+        loadData();
+      })
+
+      $('ul.pagination').on('click', '.next', (event) => {
+        let page = $('input#page').val();
+        $('input#page').val(parseInt(page) + 1);
+        loadData();
+      })
+    })
+
+    const loadData = () => {
+      $.ajax({
+        method: "GET",
+        url: `${apiUrl}`,
+        dataType: 'json'
+      })
+        .done((result) => {
+          let html = '';
+          const data = result.result;
+          data.forEach(item => {
+            html = html + `<tr>
+          <th style="text-align: center;">${item.id}</th>
+          <td style="text-align: center;">${item.string}</td>
+          <td style="text-align: center;">${item.integer}</td>
+          <td style="text-align: center;">${item.float}</td>
+          <td style="text-align: center;">${item.date}</td>
+          <td style="text-align: center;">${item.boolean}</td>
+          <td style="text-align: center;">
+            <a href="/edit/${item.id}" class="btn btn-outline-success" data-id = "${item.id}">Edit</a>
+            <button type="button" class="btn btn-outline-danger btn-delete" data-id = "${item.id}">Delete</button>
+          </td>
+        </tr>`
+          });
+          $('table tbody').html(html);
+
+          let currentPage = result.currentPage;
+          let totalPage = result.totalPage;
+          let url = result.url;
+
+          let pagination =
+            `<li class="page-item ${currentPage <= 1 ? ' disabled ' : ''}"><button class="page-link previous" tabindex="-1" aria-disabled="true">Previous</button></li>\n`;
+
+          for (let i = 1; i <= totalPage; i++) {
+
+            pagination = pagination +
+              `<li class="page-item ${currentPage == i ? ' active' : ''}"><button class="page-link pageNow" data-page='${i}'>${i}</button></li>\n`
+          }
+
+          pagination = pagination +
+            `<li class="page-item ${currentPage >= totalPage ? ' disabled' : ''}"><button class="page-link next">Next</button></li>`;
+          $('nav ul').html(pagination);
+        });
+    }
+    const saveData = () => {
+      let id = $('#id').val();
+      if (id) {
+        $.ajax({
+          method: "PUT",
+          url: `${apiUrl}/${id}`,
+          data: {
+            string: $('#string').val(),
+            integer: $('#integer').val(),
+            float: $('#float').val(),
+            date: $('#date').val(),
+            boolean: $('#boolean').val()
+          },
+          dataType: 'json'
+        })
+          .done((result) => {
+            loadData();
+            $('#string').val('');
+            $('#integer').val('');
+            $('#float').val('');
+            $('#date').val();
+            $('#boolean').val();
+          });
+      } else {
+        $.ajax({
+          method: "POST",
+          url: `${apiUrl}`,
+          data: {
+            string: $('#string').val(),
+            integer: $('#integer').val(),
+            float: $('#float').val(),
+            date: $('#date').val(),
+            boolean: $('#boolean').val()
+          },
+          dataType: 'json'
+        })
+          .done((result) => {
+            loadData();
+            $('#string').val('');
+            $('#integer').val('');
+            $('#float').val('');
+            $('#date').val('');
+            $('#boolean').val('');
+          });
+      }
+    }
+    const deleteData = (id) => {
+      $.ajax({
+        method: "DELETE",
+        url: `${apiUrl}/${id}`,
+        dataType: 'json'
+      })
+        .done((result) => {
+          loadData();
+        });
+    }
+    const editData = (id) => {
+      $.ajax({
+        method: "GET",
+        url: `${apiUrl}/${id}`,
+        dataType: 'json'
+      })
+        .done((item) => {
+          const data = item.data;
+          $('#string').val(data.string);
+          $('#integer').val(data.integer);
+          $('#float').val(data.float);
+          $('#date').val(data.date);
+          $('#boolean').val(data.boolean);
+        });
+    }
+  </script>
+</body>
+
+</html>
