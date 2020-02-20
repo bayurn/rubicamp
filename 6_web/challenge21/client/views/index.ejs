@@ -13,8 +13,8 @@
     <h1 style="text-align: center; font-family: 'Abel', sans-serif;"><%= title %></h1>
     <p style="text-align: center;">Welcome to <%= title %></p>
 
-    <form id="form-todo">
-      <input type="hidden" id="page" value="1">
+    <form id="form-todo" method="GET">
+      <input type="hidden" id="page" name="page" value="1">
       <div class="form-group row">
         <label for="id" class="col-sm-2 col-form-label">
           <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">ID</label>
@@ -164,10 +164,12 @@
     })
 
     const loadData = () => {
+      const data = $('#form-todo').serializeArray();
       $.ajax({
         method: "GET",
         url: `${apiUrl}`,
-        dataType: 'json'
+        dataType: 'json',
+        data: data
       })
         .done((result) => {
           let html = '';
@@ -191,6 +193,11 @@
           let currentPage = result.currentPage;
           let totalPage = result.totalPage;
           let url = result.url;
+          console.log(url)
+          console.log(currentPage);
+          console.log(totalPage);
+          
+          
 
           let pagination =
             `<li class="page-item ${currentPage <= 1 ? ' disabled ' : ''}"><button class="page-link previous" tabindex="-1" aria-disabled="true">Previous</button></li>\n`;
