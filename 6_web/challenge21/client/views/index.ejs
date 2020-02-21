@@ -13,7 +13,7 @@
     <h1 style="text-align: center; font-family: 'Abel', sans-serif;"><%= title %></h1>
     <p style="text-align: center;">Welcome to <%= title %></p>
 
-    <form id="form-todo" method="GET">
+    <form id="form-control" method="GET">
       <input type="hidden" id="page" name="page" value="1">
       <div class="form-group row">
         <label for="id" class="col-sm-2 col-form-label">
@@ -47,11 +47,11 @@
         <label for="date" class="col-sm-2 col-form-label">
           <input class="form-check-input" type="checkbox" name="checkDate" id="defaultCheck1">Date</label>
         <div class="col-sm-10">
-          <input type="date" class="form-control col-6" id="startDateSearch" name="inputStartDate" placeholder="date">
+          <input type="date" class="form-control col-6" id="startDateSearch" name="startDate" placeholder="date">
 
           <div class="col-sm-10">to</div>
 
-          <input type="date" class="form-control col-6" id="endDateSearch" name="inputEndDate" placeholder="date">
+          <input type="date" class="form-control col-6" id="endDateSearch" name="endDate" placeholder="date">
         </div>
       </div>
       <div class="form-group row">
@@ -130,43 +130,43 @@
           </button>
         </div>
 
-        <form id="form-edit" >
+        <form id="form-edit">
           <div class="modal-body">
             <div class="form-group row">
               <label for="id" class="col-sm-2 col-form-label">ID</label>
               <div class="col-sm-10">
-                <input type="number" class="form-control" id="id" name="id" placeholder="ID" disabled>
+                <input type="number" class="form-control" id="modalId" name="id" placeholder="ID" disabled>
               </div>
             </div>
             <div class="form-group row">
               <label for="string" class="col-sm-2 col-form-label">String</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="string" placeholder="String" name="string">
+                <input type="text" class="form-control" id="modalString" placeholder="String" name="String">
               </div>
             </div>
             <div class="form-group row">
               <label for="integer" class="col-sm-2 col-form-label">Integer</label>
               <div class="col-sm-10">
-                <input type="number" class="form-control" id="integer" name="integer" placeholder="Integer"
+                <input type="number" class="form-control" id="modalInteger" name="integer" placeholder="Integer"
                   name="integer">
               </div>
             </div>
             <div class="form-group row">
               <label for="float" class="col-sm-2 col-form-label">Float</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="float" placeholder="Float" name="float">
+                <input type="text" class="form-control" id="modalFloat" placeholder="Float" name="float">
               </div>
             </div>
             <div class="form-group row">
               <label for="date" class="col-sm-2 col-form-label">Date</label>
               <div class="col-sm-10">
-                <input type="date" class="form-control col-8" id="date" placeholder="date" name="date">
+                <input type="date" class="form-control col-8" id="modalDate" placeholder="date" name="Date">
               </div>
             </div>
             <div class="form-group row">
-              <label for="boolean" class="col-sm-2 col-form-label">Boolean</label>
+              <label for="inputBoolean" class="col-sm-2 col-form-label">Boolean</label>
               <div class="col-sm-10">
-                <select class="form-control" name="boolean" id="boolean">
+                <select class="form-control" name="boolean" id="modalBoolean">
                   <option selected disabled>Choose the boolean</option>
                   <option value="true">True</option>
                   <option value="false">False</option>
@@ -199,22 +199,23 @@
 
     $(document).ready(() => {
       loadData();
-      $('#form-todo').submit((e) => {
+
+      $('#form-control').submit((e) => {
         e.preventDefault();
-        saveData();
+        loadData();
       });
 
-      $('#form-edit').submit((e) => {
-        e.preventDefault();
-        saveData();
-      });
+      // $('#form-edit').submit((e) => {
+      //   e.preventDefault();
+      //   saveData();
+      // });
 
       $('table tbody').on('click', '.btn-delete', (event) => {
         deleteData($(event.currentTarget).attr('data-id'))
       })
 
       $('table tbody').on('click', '.btn-edit', (event) => {
-        editData($(event.currentTarget).attr('data-id'))
+        showData($(event.currentTarget).attr('data-id'))
       })
 
       $('ul.pagination').on('click', '.previous', (event) => {
@@ -235,21 +236,6 @@
         loadData();
       })
     })
-
-    // const filter = param => {
-    //   $.ajax({
-    //     method: "GET",
-    //     url: `${apiUrl}/${param}`,
-    //     dataType: 'json'
-    //   })
-    //   .done(result => {
-    //     let data = result.result;
-    //     let html = '';
-    //     data.forEach(item => {
-    //       $
-    //     })
-    //   })
-    // }
 
     const showData = param => {
       $.ajax({
@@ -281,17 +267,17 @@
     }
 
     const loadData = () => {
-      const data = $('#form-todo').serializeArray();
+      const data = $('#form-control').serializeArray();
       $.ajax({
         method: "GET",
         url: `${apiUrl}`,
         dataType: 'json',
         data: data
       }).done((result) => {
-          let html = '';
-          const data = result.result;
-          data.forEach(item => {
-            html = html + `<tr>
+        let html = '';
+        const data = result.result;
+        data.forEach(item => {
+          html = html + `<tr>
           <th style="text-align: center;">${item.id}</th>
           <td style="text-align: center;">${item.string}</td>
           <td style="text-align: center;">${item.integer}</td>
@@ -303,72 +289,47 @@
             <button type="button" class="btn btn-outline-danger btn-delete" data-id = "${item.id}">Delete</button>
           </td>
         </tr>`
-          });
-          $('table tbody').html(html);
+        });
+        $('table tbody').html(html);
 
-          let currentPage = result.currentPage;
-          let totalPage = result.totalPage;
-          let url = result.url;
+        let currentPage = result.currentPage;
+        let totalPage = result.totalPage;
+        let url = result.url;
+        let pagination =
+          `<li class="page-item ${currentPage <= 1 ? ' disabled ' : ''}"><button class="page-link previous" tabindex="-1" aria-disabled="true">Previous</button></li>\n`;
 
-          let pagination =
-            `<li class="page-item ${currentPage <= 1 ? ' disabled ' : ''}"><button class="page-link previous" tabindex="-1" aria-disabled="true">Previous</button></li>\n`;
-
-          for (let i = 1; i <= totalPage; i++) {
-
-            pagination = pagination +
-              `<li class="page-item ${currentPage == i ? ' active' : ''}"><button class="page-link pageNow" data-page='${i}'>${i}</button></li>\n`
-          }
+        for (let i = 1; i <= totalPage; i++) {
 
           pagination = pagination +
-            `<li class="page-item ${currentPage >= totalPage ? ' disabled' : ''}"><button class="page-link next">Next</button></li>`;
-          $('nav ul').html(pagination);
+            `<li class="page-item ${currentPage == i ? ' active' : ''}"><button class="page-link pageNow" data-page='${i}'>${i}</button></li>\n`
+        }
+
+        pagination = pagination +
+          `<li class="page-item ${currentPage >= totalPage ? ' disabled' : ''}"><button class="page-link next">Next</button></li>`;
+        $('nav ul').html(pagination);
+      });
+    }
+
+    const saveData = (param) => {
+      $.ajax({
+        method: "PUT",
+        url: `${apiUrl}/${param}`,
+        data: {
+          id: `${param}`,
+          string: $('#modalString').val(),
+          integer: $('#modalInteger').val(),
+          float: $('#modalFloat').val(),
+          date: $('#modalDate').val(),
+          boolean: $('#modalBoolean').val()
+        },
+        dataType: 'json'
+      })
+        .done((result) => {
+          loadData();
+          $('#editModal').modal('hide');
         });
     }
-    const saveData = (id) => {
-      if (id) {
-        $.ajax({
-          method: "PUT",
-          url: `${apiUrl}/${id}`,
-          data: {
-            string: $('#string').val(),
-            integer: $('#integer').val(),
-            float: $('#float').val(),
-            date: $('#date').val(),
-            boolean: $('#boolean').val()
-          },
-          dataType: 'json'
-        })
-          .done((result) => {
-            loadData();
-            $('#string').val('');
-            $('#integer').val('');
-            $('#float').val('');
-            $('#date').val();
-            $('#boolean').val();
-          });
-      } else {
-        $.ajax({
-          method: "POST",
-          url: `${apiUrl}`,
-          data: {
-            string: $('#string').val(),
-            integer: $('#integer').val(),
-            float: $('#float').val(),
-            date: $('#date').val(),
-            boolean: $('#boolean').val()
-          },
-          dataType: 'json'
-        })
-          .done((result) => {
-            loadData();
-            $('#string').val('');
-            $('#integer').val('');
-            $('#float').val('');
-            $('#date').val('');
-            $('#boolean').val('');
-          });
-      }
-    }
+
     const deleteData = (id) => {
       $.ajax({
         method: "DELETE",
@@ -379,21 +340,25 @@
           loadData();
         });
     }
-    const editData = (id) => {
-      $.ajax({
-        method: "GET",
-        url: `${apiUrl}/${id}`,
-        dataType: 'json'
-      })
-        .done((item) => {
-          const data = item.data;
-          $('#string').val(data.string);
-          $('#integer').val(data.integer);
-          $('#float').val(data.float);
-          $('#date').val(data.date);
-          $('#boolean').val(data.boolean);
-        });
-    } 
+
+    // const editData = () => {
+    //   const data = $('#form-edit').serializeArray();
+    //   $.ajax({
+    //     method: "GET",
+    //     url: `${apiUrl}/${id}`,
+    //     data: data,
+    //     dataType: 'json'
+    //   })
+    //     .done((item) => {
+    //       const data = item.data;
+    //       $('#string').val(data.string);
+    //       $('#integer').val(data.integer);
+    //       $('#float').val(data.float);
+    //       $('#date').val(data.date);
+    //       $('#boolean').val(data.boolean);
+    //     });
+    // } 
+
   </script>
 </body>
 
