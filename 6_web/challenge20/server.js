@@ -155,6 +155,6 @@ app.get("/delete/:id", (req, res) => {
     })
 })
 
-app.listen(3000, () => {
-    console.log(`web ini berjalan di port 3000!`);
+app.listen(3002, () => {
+    console.log(`web ini berjalan di port 3002!`);
 });
