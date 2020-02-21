@@ -7,11 +7,15 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/add', (req, res, next) => {
-  res.render('add', { title: 'Add Data' });
+  res.render('add', { titleAdd: 'Add Data' });
 });
 
 router.get('/edit/:id', (req, res, next) => {
-  res.render('edit', { title: 'Edit Data' });
+  res.render('index', { titleEdit: 'Edit Data' });
 });
+
+router.put('/edit', (req, res, next) => {
+  res.redirect('/');
+})
 
 module.exports = router;
