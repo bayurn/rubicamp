@@ -17,50 +17,50 @@
       <input type="hidden" id="page" name="page" value="1">
       <div class="form-group row">
         <label for="id" class="col-sm-2 col-form-label">
-          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">ID</label>
+          <input class="form-check-input" type="checkbox" name="checkId" id="defaultCheck1">ID</label>
         <div class="col-sm-10">
-          <input type="number" class="form-control" id="id" name="id" placeholder="ID">
+          <input type="number" class="form-control" id="idSearch" name="inputId" placeholder="ID">
         </div>
       </div>
       <div class="form-group row">
         <label for="string" class="col-sm-2 col-form-label">
-          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">String</label>
+          <input class="form-check-input" type="checkbox" name="checkString" id="defaultCheck1">String</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="string" placeholder="String">
+          <input type="text" class="form-control" id="stringSearch" name="inputString" placeholder="String">
         </div>
       </div>
       <div class="form-group row">
         <label for="integer" class="col-sm-2 col-form-label">
-          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">Integer</label>
+          <input class="form-check-input" type="checkbox" name="checkInteger" id="defaultCheck1">Integer</label>
         <div class="col-sm-10">
-          <input type="number" class="form-control" id="integer" name="integer" placeholder="Integer">
+          <input type="number" class="form-control" id="integerSearch" name="inputInteger" placeholder="Integer">
         </div>
       </div>
       <div class="form-group row">
         <label for="float" class="col-sm-2 col-form-label">
-          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">Float</label>
+          <input class="form-check-input" type="checkbox" name="checkFloat" id="defaultCheck1">Float</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="text" placeholder="Float">
+          <input type="text" class="form-control" id="textSearch" name="inputFloat" placeholder="Float">
         </div>
       </div>
       <div class="form-group row">
         <label for="date" class="col-sm-2 col-form-label">
-          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">Date</label>
+          <input class="form-check-input" type="checkbox" name="checkDate" id="defaultCheck1">Date</label>
         <div class="col-sm-10">
-          <input type="date" class="form-control col-6" id="date" placeholder="date">
+          <input type="date" class="form-control col-6" id="startDateSearch" name="inputStartDate" placeholder="date">
 
           <div class="col-sm-10">to</div>
 
-          <input type="date" class="form-control col-6" id="date" placeholder="date">
+          <input type="date" class="form-control col-6" id="endDateSearch" name="inputEndDate" placeholder="date">
         </div>
       </div>
       <div class="form-group row">
         <label for="boolean" class="col-sm-2 col-form-label">
-          <input class="form-check-input" type="checkbox" value="" id="boolean">Boolean
+          <input class="form-check-input" type="checkbox" value="" id="booleanSearch" name="checkBoolean">Boolean
 
         </label>
         <div class="col-sm-10">
-          <select class="form-control" name="boolean" id="boolean">
+          <select class="form-control" name="boolean" id="boolean" name="inputBoolean">
             <option selected disabled>Choose the boolean</option>
             <option value="true">True</option>
             <option value="false">False</option>
@@ -86,7 +86,7 @@
           <th scope="col" style="text-align: center;">Float</th>
           <th scope="col" style="text-align: center;">Date</th>
           <th scope="col" style="text-align: center;">Boolean</th>
-          <th scope="col" style="text-align: center;">Edit / Delete</th>
+          <th scope="col" style="text-align: center;">Action</th>
           <th></th>
         </tr>
       </thead>
@@ -107,9 +107,12 @@
     </table>
     <br>
     <div>
-      <a href="/add" class="btn btn-outline-primary">Add Data</a><br>
+      <a href="/add" class="btn btn-outline-primary" type="button">Add Data</a>
+      <!-- <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#editModal" data-id = "${item.id}">Add Data</button> -->
     </div>
   </div>
+
+  <!-- pagination -->
   <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
 
@@ -127,7 +130,7 @@
           </button>
         </div>
 
-        <form id="form-add">
+        <form id="form-edit" >
           <div class="modal-body">
             <div class="form-group row">
               <label for="id" class="col-sm-2 col-form-label">ID</label>
@@ -138,25 +141,26 @@
             <div class="form-group row">
               <label for="string" class="col-sm-2 col-form-label">String</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="string" placeholder="String" required>
+                <input type="text" class="form-control" id="string" placeholder="String" name="string">
               </div>
             </div>
             <div class="form-group row">
               <label for="integer" class="col-sm-2 col-form-label">Integer</label>
               <div class="col-sm-10">
-                <input type="number" class="form-control" id="integer" name="integer" placeholder="Integer">
+                <input type="number" class="form-control" id="integer" name="integer" placeholder="Integer"
+                  name="integer">
               </div>
             </div>
             <div class="form-group row">
               <label for="float" class="col-sm-2 col-form-label">Float</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="float" placeholder="Float">
+                <input type="text" class="form-control" id="float" placeholder="Float" name="float">
               </div>
             </div>
             <div class="form-group row">
               <label for="date" class="col-sm-2 col-form-label">Date</label>
               <div class="col-sm-10">
-                <input type="date" class="form-control col-8" id="date" placeholder="date">
+                <input type="date" class="form-control col-8" id="date" placeholder="date" name="date">
               </div>
             </div>
             <div class="form-group row">
@@ -171,7 +175,7 @@
             </div><br>
             <div>
               <button class="btn btn-outline-primary" type="submit">Save</button>
-              <a href="/" class="btn btn-outline-warning" type="button">Cancel</a>
+              <button type="button" class="btn btn-outline-warning" data-dismiss="modal">Cancel</button>
             </div><br>
           </div>
         </form>
@@ -196,6 +200,11 @@
     $(document).ready(() => {
       loadData();
       $('#form-todo').submit((e) => {
+        e.preventDefault();
+        saveData();
+      });
+
+      $('#form-edit').submit((e) => {
         e.preventDefault();
         saveData();
       });
@@ -278,8 +287,7 @@
         url: `${apiUrl}`,
         dataType: 'json',
         data: data
-      })
-        .done((result) => {
+      }).done((result) => {
           let html = '';
           const data = result.result;
           data.forEach(item => {
@@ -301,11 +309,6 @@
           let currentPage = result.currentPage;
           let totalPage = result.totalPage;
           let url = result.url;
-          console.log(url)
-          console.log(currentPage);
-          console.log(totalPage);
-
-
 
           let pagination =
             `<li class="page-item ${currentPage <= 1 ? ' disabled ' : ''}"><button class="page-link previous" tabindex="-1" aria-disabled="true">Previous</button></li>\n`;
@@ -321,8 +324,7 @@
           $('nav ul').html(pagination);
         });
     }
-    const saveData = () => {
-      let id = $('#id').val();
+    const saveData = (id) => {
       if (id) {
         $.ajax({
           method: "PUT",
@@ -391,7 +393,7 @@
           $('#date').val(data.date);
           $('#boolean').val(data.boolean);
         });
-    }
+    } 
   </script>
 </body>
 
