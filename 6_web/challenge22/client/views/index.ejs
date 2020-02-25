@@ -1,19 +1,336 @@
 <%- include("partials/header.ejs") %>
 
 <body>
-  <div class="container">
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+  <div class="container col-9">
+    <h1 style="text-align: center;"><%= title %></h1>
+    <p style="text-align: center;">Welcome to <%= title %></p>
+    <p class="container">
+      <h3>Filter</h3>
+    </p>
 
-    <form>
+    <form id="form-control" method="GET">
+      <input type="hidden" id="page" name="page" value="1">
       <div class="form-group row">
-        <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+        <label for="inputString" class="col-sm-2 col-form-label">
+          <input class="form-check-input" type="checkbox" id="checkString">String</label>
         <div class="col-sm-10">
-          <input type="email" class="form-control" id="inputEmail3">
+          <input type="text" class="form-control" id="string" name="inputString" placeholder="String">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputInteger" class="col-sm-2 col-form-label">
+          <input class="form-check-input" type="checkbox" id="checkInteger">Integer</label>
+        <div class="col-sm-10">
+          <input type="number" class="form-control" id="integer" name="inputInteger" placeholder="Integer">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputFloat" class="col-sm-2 col-form-label">
+          <input class="form-check-input" type="checkbox" id="checkFloat">Float</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="float" name="inputFloat" placeholder="Float">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputDate" class="col-sm-2 col-form-label">
+          <input class="form-check-input" type="checkbox" id="checkDate">Date</label>
+        <div class="col-sm-5">
+          <input type="date" class="form-control" id="startDate" name="startDate">
+          to
+          <input type="date" class="form-control" id="endDate" name="endDate">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputBoolean" class="col-sm-2 col-form-label">
+          <input class="form-check-input" type="checkbox" id="checkBoolean">Boolean</label>
+        <div class="col-sm-10">
+          <select class="form-control" name="inputBoolean" id="boolean" placeholder="Boolean">
+            <option selected disabled>Choose the boolean</option>
+            <option value="true">True</option>
+            <option value="false">false</option>
+          </select>
+        </div>
+      </div>
+
+      <br>
+
+      <div class="form-group row">
+        <button type="submit" class="btn btn-outline-primary">Search</button>
+        <div class="col-sm-2">
+          <a href="/" class="btn btn-outline-danger" role="button">Reset</a>
         </div>
       </div>
   </div>
+  </form>
 
+  <br>
+
+  <div class="container">
+    <table class="table container col-10">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col" style="text-align: center;">ID</th>
+          <th scope="col" style="text-align: center;">String</th>
+          <th scope="col" style="text-align: center;">Integer</th>
+          <th scope="col" style="text-align: center;">Float</th>
+          <th scope="col" style="text-align: center;">Date</th>
+          <th scope="col" style="text-align: center;">Boolean</th>
+          <th scope="col" style="text-align: center;">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- <tr>
+          <td style="text-align: center;">1</td>
+          <td style="text-align: center;">Mama</td>
+          <td style="text-align: center;">121</td>
+          <td style="text-align: center;">12.45</td>
+          <td style="text-align: center;">2020-04-02</td>
+          <td style="text-align: center;">True</td>
+          <td style="text-align: center;">
+            <a href="" type="submit" class="btn btn-outline-success">Edit</a>
+            <a href="" class="btn btn-outline-danger">Delete</a>
+          </td>
+        </tr> -->
+      </tbody>
+    </table>
+    <br>
+  </div>
+  <div class="container col-sm-9">
+    <a href="/add" class="btn btn-outline-primary">Add Data</a>
+  </div>
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+
+    </ul>
+  </nav>
+
+  <!-- modal edit -->
+  <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="editModalLabel">Edit Data</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <form id="form-edit">
+          <div class="modal-body">
+            <div class="form-group row">
+              <label for="inputId" class="col-sm-2 col-form-label">ID</label>
+              <div class="col-sm-10">
+                <input type="number" class="form-control" id="modalId" name="id" placeholder="ID" disabled>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputString" class="col-sm-2 col-form-label">String</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="modalString" placeholder="String" name="String">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputInteger" class="col-sm-2 col-form-label">Integer</label>
+              <div class="col-sm-10">
+                <input type="number" class="form-control" id="modalInteger" name="integer" placeholder="Integer"
+                  name="integer">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputFloat" class="col-sm-2 col-form-label">Float</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="modalFloat" placeholder="Float" name="float">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputDate" class="col-sm-2 col-form-label">Date</label>
+              <div class="col-sm-10">
+                <input type="date" class="form-control col-8" id="modalDate" placeholder="date" name="Date">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputBoolean" class="col-sm-2 col-form-label">Boolean</label>
+              <div class="col-sm-10">
+                <select class="form-control" name="boolean" id="modalBoolean">
+                  <option selected disabled>Choose the boolean</option>
+                </select>
+              </div>
+            </div><br>
+            <div class="modal-footer">
+              <button type="submit" id="submit-data" class="btn btn-outline-primary btn-save-change" dataid=""
+                data-dismiss="modal">Save</button>
+              <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
+            </div><br>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    const apiUrl = "http://localhost:3000/api"
+
+    $(document).ready(() => {
+      loadData();
+
+      $('#form-control').submit((e) => {
+        e.preventDefault();
+        loadData();
+      });
+
+      $('#form-edit').submit((e) => {
+        e.preventDefault();
+        saveData();
+      });
+
+      $('table tbody').on('click', '.btn-delete', (event) => {
+        event.preventDefault();
+        deleteData($(event.currentTarget).attr('data-id'))
+      })
+
+      $('table tbody').on('click', '.btn-edit', (event) => {
+        showData($(event.currentTarget).attr('data-id'))
+      })
+
+      $('.modal-footer').on('click', '.btn-save-change', (event) => {
+        event.preventDefault();
+        saveData($(event.currentTarget).attr('dataid'));
+        loadData();
+      })
+
+      $('ul.pagination').on('click', '.previous', (event) => {
+        let page = $('input#page').val();
+        $('input#page').val(parseInt(page) - 1);
+        loadData();
+      })
+
+      $('ul.pagination').on('click', '.pageNow', (event) => {
+        let page = $('input#page').val();
+        $('input#page').val($(event.currentTarget).attr('data-page'));
+        loadData();
+      })
+
+      $('ul.pagination').on('click', '.next', (event) => {
+        let page = $('input#page').val();
+        $('input#page').val(parseInt(page) + 1);
+        loadData();
+      })
+    })
+
+    const showData = param => {
+      $.ajax({
+        method: "GET",
+        url: `${apiUrl}/${param}`,
+        dataType: 'json'
+      })
+        .done(result => {
+          let data = result.result;
+          let html = '';
+          // data.forEach(item => {
+          $('button#submit-data').attr('dataid', data._id);
+          $('input#modalId').val(data.id);
+          $('input#modalString').val(data.string);
+          $('input#modalInteger').val(data.integer);
+          $('input#modalFloat').val(data.float);
+          $('input#modalDate').val(data.date);
+          if (data.boolean == 'true') {
+            html += `<option value="false">false</option>
+              <option value="true" selected>true</option>`
+          } else {
+            html += `<option value="false" selected>false</option>
+              <option value="true">true</option>`
+          }
+
+          $('#modalBoolean').html(html);
+        })
+    }
+
+    const loadData = () => {
+      const data = $('#form-control').serializeArray();
+      $.ajax({
+        method: "GET",
+        url: apiUrl,
+        dataType: 'json',
+        data: data
+      }).done((result) => {
+        let html = '';
+        const data = result.result;
+        data.forEach((item, index) => {
+          html = html + `<tr>
+          <td style="text-align: center;">${item.string}</td>
+          <td style="text-align: center;">${item.integer}</td>
+          <td style="text-align: center;">${item.float}</td>
+          <td style="text-align: center;">${item.date}</td>
+          <td style="text-align: center;">${item.boolean}</td>
+          <td style="text-align: center;">
+            <button type="button" class="btn btn-outline-success btn-edit" data-toggle="modal" data-target="#editModal" data-id = "${item.id}">Edit</button>
+            <button type="button" class="btn btn-outline-danger btn-delete" data-id = "${item.id}">Delete</button>
+          </td>
+        </tr>`
+        });
+        $('table tbody').html(html);
+
+        let page = result.page;
+        let pages = result.pages;
+        let url = result.url;
+        let pagination =
+          `<li class="page-item ${page <= 1 ? ' disabled ' : ''}"><button class="page-link previous" tabindex="-1" aria-disabled="true">Previous</button></li>\n`;
+
+        for (let i = 1; i <= pages; i++) {
+
+          pagination = pagination +
+            `<li class="page-item ${page == i ? ' active' : ''}"><button class="page-link pageNow" data-page='${i}'>${i}</button></li>\n`
+        }
+
+        pagination = pagination +
+          `<li class="page-item ${page >= pages ? ' disabled' : ''}"><button class="page-link next">Next</button></li>`;
+        $('nav ul').html(pagination);
+      });
+    }
+
+    const saveData = (param) => {
+      $.ajax({
+        method: "PUT",
+        url: `${apiUrl}/${param}`,
+        data: {
+          id: `${param}`,
+          string: $('#modalString').val(),
+          integer: $('#modalInteger').val(),
+          float: $('#modalFloat').val(),
+          date: $('#modalDate').val(),
+          boolean: $('#modalBoolean').val()
+        },
+        dataType: 'json'
+      })
+        .done((result) => {
+          loadData();
+          // $('#editModal').modal('hide');
+        });
+    }
+
+    const deleteData = (id) => {
+      $.ajax({
+        method: "DELETE",
+        url: `${apiUrl}/${id}`,
+        dataType: 'json'
+      })
+        .done((result) => {
+          loadData();
+        });
+    }
+
+  </script>
 
 </body>
 
