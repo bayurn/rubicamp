@@ -12,28 +12,28 @@
       <input type="hidden" id="page" name="page" value="1">
       <div class="form-group row">
         <label for="inputString" class="col-sm-2 col-form-label">
-          <input class="form-check-input" type="checkbox" id="checkString">String</label>
+          <input class="form-check-input" type="checkbox" id="checkString" name="checkString">String</label>
         <div class="col-sm-10">
           <input type="text" class="form-control" id="string" name="inputString" placeholder="String">
         </div>
       </div>
       <div class="form-group row">
         <label for="inputInteger" class="col-sm-2 col-form-label">
-          <input class="form-check-input" type="checkbox" id="checkInteger">Integer</label>
+          <input class="form-check-input" type="checkbox" id="checkInteger" name="checkInteger">Integer</label>
         <div class="col-sm-10">
           <input type="number" class="form-control" id="integer" name="inputInteger" placeholder="Integer">
         </div>
       </div>
       <div class="form-group row">
         <label for="inputFloat" class="col-sm-2 col-form-label">
-          <input class="form-check-input" type="checkbox" id="checkFloat">Float</label>
+          <input class="form-check-input" type="checkbox" id="checkFloat" name="checkFloat">Float</label>
         <div class="col-sm-10">
           <input type="text" class="form-control" id="float" name="inputFloat" placeholder="Float">
         </div>
       </div>
       <div class="form-group row">
         <label for="inputDate" class="col-sm-2 col-form-label">
-          <input class="form-check-input" type="checkbox" id="checkDate">Date</label>
+          <input class="form-check-input" type="checkbox" id="checkDate" name="checkDate">Date</label>
         <div class="col-sm-5">
           <input type="date" class="form-control" id="startDate" name="startDate">
           to
@@ -42,9 +42,9 @@
       </div>
       <div class="form-group row">
         <label for="inputBoolean" class="col-sm-2 col-form-label">
-          <input class="form-check-input" type="checkbox" id="checkBoolean">Boolean</label>
+          <input class="form-check-input" type="checkbox" id="checkBoolean" name="checkBoolean">Boolean</label>
         <div class="col-sm-10">
-          <select class="form-control" name="inputBoolean" id="boolean" placeholder="Boolean">
+          <select class="form-control" name="inputBoolean" id="inputBoolean" placeholder="Boolean">
             <option selected disabled>Choose the boolean</option>
             <option value="true">True</option>
             <option value="false">false</option>
@@ -156,7 +156,6 @@
             </div><br>
           </div>
         </form>
-
       </div>
     </div>
   </div>
@@ -171,6 +170,7 @@
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  
   <script type="text/javascript">
     const apiUrl = "http://localhost:3000/api"
 
@@ -231,21 +231,20 @@
           let data = result.result;
           let html = '';
           data.forEach(item => {
-            $('button#submit-data').attr('dataid', data._id);
-            $('input#modalString').val(data.string);
-            $('input#modalInteger').val(data.integer);
-            $('input#modalFloat').val(data.float);
-            $('input#modalDate').val(data.date);
-            if (data.boolean == 'true') {
+            $('button#submit-data').attr('dataid', item._id);
+            $('input#modalString').val(item.string);
+            $('input#modalInteger').val(item.integer);
+            $('input#modalFloat').val(item.float);
+            $('input#modalDate').val(item.date);
+            if (item.boolean == 'true') {
               html += `<option value="false">false</option>
               <option value="true" selected>true</option>`
             } else {
               html += `<option value="false" selected>false</option>
               <option value="true">true</option>`
             }
-
-            $('#modalBoolean').html(html);
           })
+          $('#modalBoolean').html(html);
         })
     }
 
@@ -254,12 +253,12 @@
       $.ajax({
         method: "GET",
         url: `${apiUrl}`,
-        dataType: 'json',
-        data: data
+        data: data,
+        dataType: 'json'
       }).done((result) => {
         let html = '';
         const data = result.result;
-        data.forEach((item, index) => {
+        data.forEach(item => {
           html = html + `<tr>
           <td style="text-align: center;">${item.string}</td>
           <td style="text-align: center;">${item.integer}</td>
@@ -308,7 +307,7 @@
       })
         .done((result) => {
           loadData();
-          // $('#editModal').modal('hide');
+          $('#editModal').modal('hide');
         });
     }
 
