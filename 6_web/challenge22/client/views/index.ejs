@@ -69,7 +69,6 @@
     <table class="table container col-10">
       <thead class="thead-dark">
         <tr>
-          <th scope="col" style="text-align: center;">ID</th>
           <th scope="col" style="text-align: center;">String</th>
           <th scope="col" style="text-align: center;">Integer</th>
           <th scope="col" style="text-align: center;">Float</th>
@@ -117,12 +116,6 @@
 
         <form id="form-edit">
           <div class="modal-body">
-            <div class="form-group row">
-              <label for="inputId" class="col-sm-2 col-form-label">ID</label>
-              <div class="col-sm-10">
-                <input type="number" class="form-control" id="modalId" name="id" placeholder="ID" disabled>
-              </div>
-            </div>
             <div class="form-group row">
               <label for="inputString" class="col-sm-2 col-form-label">String</label>
               <div class="col-sm-10">
@@ -237,22 +230,22 @@
         .done(result => {
           let data = result.result;
           let html = '';
-          // data.forEach(item => {
-          $('button#submit-data').attr('dataid', data._id);
-          $('input#modalId').val(data.id);
-          $('input#modalString').val(data.string);
-          $('input#modalInteger').val(data.integer);
-          $('input#modalFloat').val(data.float);
-          $('input#modalDate').val(data.date);
-          if (data.boolean == 'true') {
-            html += `<option value="false">false</option>
+          data.forEach(item => {
+            $('button#submit-data').attr('dataid', data._id);
+            $('input#modalString').val(data.string);
+            $('input#modalInteger').val(data.integer);
+            $('input#modalFloat').val(data.float);
+            $('input#modalDate').val(data.date);
+            if (data.boolean == 'true') {
+              html += `<option value="false">false</option>
               <option value="true" selected>true</option>`
-          } else {
-            html += `<option value="false" selected>false</option>
+            } else {
+              html += `<option value="false" selected>false</option>
               <option value="true">true</option>`
-          }
+            }
 
-          $('#modalBoolean').html(html);
+            $('#modalBoolean').html(html);
+          })
         })
     }
 
@@ -260,7 +253,7 @@
       const data = $('#form-control').serializeArray();
       $.ajax({
         method: "GET",
-        url: apiUrl,
+        url: `${apiUrl}`,
         dataType: 'json',
         data: data
       }).done((result) => {
