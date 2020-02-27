@@ -64,7 +64,7 @@ const addData = (req, res, next) => {
     })
 }
 
-const editData = (req, res, next) => {
+const updateData = (req, res, next) => {
     dataModel.findByIdAndUpdate(req.params.id, req.body, (err, post) => {
         if (err) return next(err)
         res.json(post)
@@ -91,6 +91,6 @@ module.exports = {
     getData,
     addData,
     getOne,
-    editData,
+    updateData,
     deleteData
 }
