@@ -223,7 +223,7 @@
       })
     })
 
-    const showData = param => {
+    const showData = (param) => {
       $.ajax({
         method: "GET",
         url: `${apiUrl}/${param}`,
@@ -240,10 +240,10 @@
           $('input#modalFloat').val(data.float);
           $('input#modalDate').val(data.date);
           if (data.boolean == 'true') {
-            html += `<option value="false">false</option>
+            html = html + `<option value="false">false</option>
               <option value="true" selected>true</option>`
           } else {
-            html += `<option value="false" selected>false</option>
+            html = html + `<option value="false" selected>false</option>
               <option value="true">true</option>`
           }
           $('#modalBoolean').html(html);
@@ -303,14 +303,13 @@
           integer: $('#modalInteger').val(),
           float: $('#modalFloat').val(),
           date: $('#modalDate').val(),
-          boolean: $('#modalBoolean').val()
+          boolean: $('#modalBoolean').val(),
         },
         dataType: 'json'
       })
         .done((result) => {
           loadData();
-          $('#editModal').modal('hide');
-        });
+        })
     }
 
     const deleteData = (id) => {
